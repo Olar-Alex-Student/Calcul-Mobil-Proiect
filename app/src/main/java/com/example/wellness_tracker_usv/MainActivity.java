@@ -1,61 +1,69 @@
+
 package com.example.wellness_tracker_usv;
 
-import static android.content.ContentValues.TAG;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            //Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            //v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        // Inițializează Firebase Firestore
+        db = FirebaseFirestore.getInstance();
+
+        // Legături către input-uri și buton
+        EditText inputEmail = findViewById(R.id.inputEmail);
+        EditText inputPassword = findViewById(R.id.inputPassword);
+        Button loginButton = findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(v -> {
+            String email = inputEmail.getText().toString().trim();
+            String password = inputPassword.getText().toString().trim();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Verificare date în Firebase Firestore
+            db.collection("users")
+                    .whereEqualTo("email", email)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        boolean userFound = false;
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            String storedPassword = document.getString("password");
+                            if (storedPassword != null && storedPassword.equals(password)) {
+                                userFound = true;
+                                // Navighează la WelcomeActivity
+                                Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+                                startActivity(intent);
+                                finish(); // Oprește activitatea curentă
+                                break;
+                            }
+                        }
+                        if (!userFound) {
+                            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("LoginError", "Error fetching data", e);
+                        Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT).show();
+                    });
         });
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-//        Map<String,Object> user=new HashMap<>();
-//        user.put("first_name","Alex");
-//        user.put("last_name","Olar");
-//        user.put("email","alex.olar@student.usv.ro");
-//        user.put("password","1234");
-//
-//        db.collection("users")
-//                .add(user)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error adding document");
-//                    }
-//                });
     }
 }
