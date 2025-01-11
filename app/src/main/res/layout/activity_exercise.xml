@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/exerciseSpinner"
+        android:layout_width="411dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/durationInput">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/durationInput"
+        android:layout_width="401dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:hint="Duration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exerciseSpinner" />
+
+    <TextView
+        android:id="@+id/caloriesBurnedText"
+        android:layout_width="401dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/durationInput" />
+
+    <Button
+        android:id="@+id/calculateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="48dp"
+        android:text="Calculate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="104dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="39dp"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton" />
+
+    <Button
+        android:id="@+id/setNotificationButton"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="48dp"
+        android:text="Set alarm"
+        app:layout_constraintStart_toEndOf="@+id/calculateButton"
+        app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
+
+    <TextView
+        android:id="@+id/selectedTimeText"
+        android:layout_width="105dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="37dp"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toBottomOf="@+id/setNotificationButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
