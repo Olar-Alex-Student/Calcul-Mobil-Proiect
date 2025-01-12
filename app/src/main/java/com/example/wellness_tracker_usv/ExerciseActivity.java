@@ -335,6 +335,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
 
         // Calculate button action
+        /*
         calculateButton.setOnClickListener(v -> {
             String durationStr = durationInput.getText().toString().trim();
             if (durationStr.isEmpty()) {
@@ -385,6 +386,66 @@ public class ExerciseActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error calculating calories", Toast.LENGTH_SHORT).show();
             }
         });
+        */
+        calculateButton.setOnClickListener(v -> {
+            String durationStr = durationInput.getText().toString().trim();
+
+            if (durationStr.isEmpty()) {
+                Toast.makeText(this, "Please enter duration", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int duration;
+            try {
+                duration = Integer.parseInt(durationStr);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Please enter a valid number for duration", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String selectedExercise = (String) exerciseSpinner.getSelectedItem();
+            Integer caloriesPerMinute = exerciseCaloriesMap.get(selectedExercise);
+
+            if (caloriesPerMinute != null) {
+                int totalCaloriesBurned = caloriesPerMinute * duration;
+                caloriesBurnedText.setText(String.format("Calories burned: %d", totalCaloriesBurned));
+
+                // Scade caloriile calculate din totalCalories din baza de date
+                db.collection("users")
+                        .whereEqualTo("userId", userId)
+                        .get()
+                        .addOnSuccessListener(querySnapshot -> {
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                String documentId = document.getId();
+                                Double totalCalories = document.getDouble("totalCalories");
+                                if (totalCalories == null) totalCalories = 0.0;
+
+                                double updatedCalories = totalCalories - totalCaloriesBurned;
+
+                                // Actualizează totalCalories în baza de date
+                                db.collection("users").document(documentId)
+                                        .update("totalCalories", updatedCalories)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(this, "Calories burned and total updated!", Toast.LENGTH_SHORT).show();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this, "Failed to update total calories", Toast.LENGTH_SHORT).show();
+                                            Log.e("UpdateError", "Error updating total calories", e);
+                                        });
+
+                                // Afișează totalul actualizat în UI
+                                totalCaloriesText.setText(String.format("Total Calories: %.2f", updatedCalories));
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
+                            Log.e("FetchError", "Error fetching user data", e);
+                        });
+            } else {
+                Toast.makeText(this, "Error calculating calories", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         // Total calories button action
         calculateTotalButton.setOnClickListener(v -> {

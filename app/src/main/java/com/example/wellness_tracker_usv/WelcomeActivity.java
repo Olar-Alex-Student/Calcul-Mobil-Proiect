@@ -111,6 +111,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         // Calculate button action
+        /*
         calculateButton.setOnClickListener(v -> {
             String gramsStr = gramInput.getText().toString();
             if (gramsStr.isEmpty()) {
@@ -119,6 +120,35 @@ public class WelcomeActivity extends AppCompatActivity {
             }
 
             int grams = Integer.parseInt(gramsStr);
+            selectedFood = (String) foodSpinner.getSelectedItem();
+            Integer caloriesPer100g = foodCaloriesMap.get(selectedFood);
+
+            if (caloriesPer100g != null) {
+                calculatedCalories = (caloriesPer100g * grams) / 100.0;
+                totalCalories += calculatedCalories;
+                totalCaloriesText.setText(String.format("Total Calories: %.2f", totalCalories));
+                resultText.setText(String.format("%s (%.0fg) contains %.2f calories", selectedFood, (float) grams, calculatedCalories));
+            } else {
+                Toast.makeText(this, "Error calculating calories", Toast.LENGTH_SHORT).show();
+            }
+        });
+         */
+        calculateButton.setOnClickListener(v -> {
+            String gramsStr = gramInput.getText().toString().trim();
+
+            if (gramsStr.isEmpty()) {
+                Toast.makeText(this, "Please enter the weight in grams", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int grams;
+            try {
+                grams = Integer.parseInt(gramsStr);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Please enter a valid number for weight in grams", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             selectedFood = (String) foodSpinner.getSelectedItem();
             Integer caloriesPer100g = foodCaloriesMap.get(selectedFood);
 

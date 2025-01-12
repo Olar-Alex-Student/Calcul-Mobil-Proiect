@@ -7,17 +7,19 @@
 
     <Spinner
         android:id="@+id/exerciseSpinner"
-        android:layout_width="411dp"
-        android:layout_height="53dp"
+        android:layout_width="310dp"
+        android:layout_height="48dp"
         android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
         android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/durationInput">
 
@@ -25,79 +27,82 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/durationInput"
-        android:layout_width="401dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="306dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="28dp"
         android:hint="Duration"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseSpinner" />
 
     <TextView
         android:id="@+id/caloriesBurnedText"
-        android:layout_width="401dp"
+        android:layout_width="321dp"
         android:layout_height="50dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durationInput" />
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout" />
 
     <Button
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
         android:text="Calculate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
+        app:layout_constraintTop_toBottomOf="@+id/calculateTotalButton" />
 
     <Button
         android:id="@+id/backButton"
         android:layout_width="104dp"
         android:layout_height="48dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="40dp"
         android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calculateButton" />
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton"
+        app:layout_constraintVertical_bias="0.097" />
 
     <Button
         android:id="@+id/setNotificationButton"
         android:layout_width="105dp"
         android:layout_height="50dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="40dp"
         android:text="Set alarm"
-        app:layout_constraintStart_toEndOf="@+id/calculateButton"
-        app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalCaloriesText" />
 
     <TextView
         android:id="@+id/selectedTimeText"
         android:layout_width="105dp"
         android:layout_height="44dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
-        app:layout_constraintTop_toBottomOf="@+id/setNotificationButton" />
+        android:layout_marginEnd="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setNotificationButton"
+        app:layout_constraintVertical_bias="0.088" />
 
     <Button
         android:id="@+id/calculateTotalButton"
         android:layout_width="112dp"
         android:layout_height="50dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="52dp"
         android:text="Total"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
 
     <TextView
         android:id="@+id/totalCaloriesText"
-        android:layout_width="177dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toEndOf="@+id/calculateTotalButton"
+        android:layout_width="116dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
