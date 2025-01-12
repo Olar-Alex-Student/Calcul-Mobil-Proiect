@@ -46,8 +46,8 @@
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="132dp"
         android:text="Calculate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
@@ -56,8 +56,8 @@
         android:id="@+id/backButton"
         android:layout_width="104dp"
         android:layout_height="48dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="44dp"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calculateButton" />
@@ -66,8 +66,8 @@
         android:id="@+id/setNotificationButton"
         android:layout_width="105dp"
         android:layout_height="50dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="132dp"
         android:text="Set alarm"
         app:layout_constraintStart_toEndOf="@+id/calculateButton"
         app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
@@ -76,9 +76,28 @@
         android:id="@+id/selectedTimeText"
         android:layout_width="105dp"
         android:layout_height="44dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toBottomOf="@+id/setNotificationButton" />
+
+    <Button
+        android:id="@+id/calculateTotalButton"
+        android:layout_width="112dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="47dp"
+        android:text="Total"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
+
+    <TextView
+        android:id="@+id/totalCaloriesText"
+        android:layout_width="177dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toEndOf="@+id/calculateTotalButton"
+        app:layout_constraintTop_toBottomOf="@+id/caloriesBurnedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,8 +76,8 @@
 
     <Button
         android:id="@+id/totalCaloriesButton"
-        android:layout_width="104dp"
-        android:layout_height="50dp"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
         android:layout_marginStart="109dp"
         android:layout_marginTop="56dp"
         android:text="Total"
@@ -86,12 +86,22 @@
 
     <Button
         android:id="@+id/exerciseButton"
-        android:layout_width="111dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="30dp"
-        android:text="Exercises"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="20dp"
+        android:text="Exercise"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalCaloriesButton" />
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="21dp"
+        android:text="Reset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

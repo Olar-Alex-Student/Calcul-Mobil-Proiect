@@ -31,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button totalCaloriesButton;
     private TextView resultText;
 
-    private Button exerciseButton;
+    private Button exerciseButton,resetButton;
     private Map<String, Integer> foodCaloriesMap = new HashMap<>();
     private String selectedFood;
     private double calculatedCalories;
@@ -64,11 +64,44 @@ public class WelcomeActivity extends AppCompatActivity {
         totalCaloriesButton = findViewById(R.id.totalCaloriesButton);
         resultText = findViewById(R.id.resultText);
         exerciseButton = findViewById(R.id.exerciseButton);
+        resetButton = findViewById(R.id.resetButton);
 
 
         // Load food data from Firebase
         loadFoodData();
 
+
+        // Funcționalitate pentru butonul Reset
+        resetButton.setOnClickListener(v -> {
+            db.collection("users")
+                    .whereEqualTo("userId", userId)
+                    .get()
+                    .addOnSuccessListener(querySnapshot -> {
+                        if (!querySnapshot.isEmpty()) {
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                String documentId = document.getId();
+
+                                // Resetează totalCalories la 0
+                                db.collection("users").document(documentId)
+                                        .update("totalCalories", 0.0)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(this, "Total calories reset to 0!", Toast.LENGTH_SHORT).show();
+                                            totalCaloriesText.setText("Total Calories: 0.00");
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this, "Failed to reset total calories", Toast.LENGTH_SHORT).show();
+                                            Log.e("ResetError", "Error resetting total calories", e);
+                                        });
+                            }
+                        } else {
+                            Toast.makeText(this, "User not found in database", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
+                        Log.e("FetchError", "Error fetching user data", e);
+                    });
+        });
 
         exerciseButton.setOnClickListener(v -> {
             Intent intent = new Intent(WelcomeActivity.this, ExerciseActivity.class);
